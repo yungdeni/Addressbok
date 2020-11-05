@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-
 namespace Addressbok
 {
     class Person
@@ -12,7 +9,6 @@ namespace Addressbok
         public string address;
         public string phone;
         public string email;
-
         public Person(string inputName, string inputAddress, string inputPhone, string inputEmail)
         {
             name = inputName;
@@ -20,12 +16,10 @@ namespace Addressbok
             phone = inputPhone;
             email = inputEmail;
         }
-
         public override string ToString()
         {
             return String.Format("{0} {1} {2} {3}", name, address, phone, email);
         }
-
         public string SaveFields()
         {
             return String.Format("{0},{1},{2},{3}{4}", name, address, phone, email, Environment.NewLine);
@@ -44,27 +38,21 @@ namespace Addressbok
                 addressBook.Add(new Person(i[0], i[1], i[2], i[3]));
             }
             string command = "";
-
             while (command != "quit")
-
-
             {
                 command = Console.ReadLine();
                 if (command == "new")
                 {
                     Console.WriteLine("Skriv in namn");
-                    string n = Console.ReadLine();
+                    string savedName = Console.ReadLine();
                     Console.WriteLine("Skriv in adress");
-                    string a = Console.ReadLine();
+                    string savedAddress = Console.ReadLine();
                     Console.WriteLine("Skriv in telefonnummer");
-                    string p = Console.ReadLine();
+                    string savedPhone = Console.ReadLine();
                     Console.WriteLine("Skriv in email");
-                    string e = Console.ReadLine();
-
-                    addressBook.Add(new Person(n, a, p, e));
-
+                    string savedEmail = Console.ReadLine();
+                    addressBook.Add(new Person(savedName, savedAddress, savedPhone, savedEmail));
                 }
-
                 else if (command == "list")
                 {
                     for (int i = 0; i < addressBook.Count(); i++)
@@ -72,10 +60,9 @@ namespace Addressbok
                         Console.WriteLine(addressBook[i].ToString());
                     }
                 }
-
                 else if (command == "remove")
                 {
-                    Console.WriteLine("Skriv in namnet p[ personen du vill ta bort");
+                    Console.WriteLine("Skriv in namnet på personen du vill ta bort");
                     string personToRemove = Console.ReadLine();
                     if (addressBook.Remove(addressBook.Find(x => x.name.Equals(personToRemove))))
                     {
@@ -88,58 +75,50 @@ namespace Addressbok
                 }
                 else if (command == "change")
                 {
-                    Console.WriteLine("Skriv in namnet p[ personen du vill 'ndra p[");
+                    Console.WriteLine("Skriv in namnet på personen du vill ändra på");
                     string nameToFind = Console.ReadLine();
-
-
                     Person pointer = addressBook.Find(x => x.name.Equals(nameToFind));
-                    Console.WriteLine("Personen heter: " + pointer.name + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
-                    string change = Console.ReadLine();
-                    if (change != "")
+                    if (pointer != null)
                     {
-                        pointer.name = change;
+                        Console.WriteLine("Personen heter: " + pointer.name + " Tryck enter om du vill behålla det, annars skriv in det nya");
+                        string change = Console.ReadLine();
+                        if (change != "")
+                        {
+                            pointer.name = change;
+                        }
+                        Console.WriteLine("Personen bor på: " + pointer.address + " Tryck enter om du vill behålla det, annars skriv in det nya");
+                        change = Console.ReadLine();
+                        if (change != "")
+                        {
+                            pointer.address = change;
+                        }
+                        Console.WriteLine("Personen har telefonnummer: " + pointer.phone + " Tryck enter om du vill behålla det, annars skriv in det nya");
+                        change = Console.ReadLine();
+                        if (change != "")
+                        {
+                            pointer.phone = change;
+                        }
+                        Console.WriteLine("Personen har email: " + pointer.email + " Tryck enter om du vill behålla det, annars skriv in det nya");
+                        change = Console.ReadLine();
+                        if (change != "")
+                        {
+                            pointer.email = change;
+                        }
                     }
-                    Console.WriteLine("Personen bor p[: " + pointer.address + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
-                    change = Console.ReadLine();
-                    if (change != "")
+                    else
                     {
-                        pointer.address = change;
+                        Console.WriteLine("Den personen finns inte");
                     }
-                    Console.WriteLine("Personen har telefonnummer: " + pointer.phone + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
-                    change = Console.ReadLine();
-                    if (change != "")
-                    {
-                        pointer.phone = change;
-                    }
-                    Console.WriteLine("Personen har email: " + pointer.email + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
-                    change = Console.ReadLine();
-                    if (change != "")
-                    {
-                        pointer.email = change;
-                    }
-
-
-
                 }
             }
-
-            Save(addressBook,path);
-
+            Save(addressBook, path);
         }
-
-        static void Save(List<Person> addr,string path)
+        static void Save(List<Person> addr, string path)
         {
-            
             System.IO.File.Delete(path);
-            
             for (int i = 0; i < addr.Count(); i++)
             {
-
-
                 System.IO.File.AppendAllText(path, addr[i].SaveFields());
-                
-       
-
             }
         }
     }
