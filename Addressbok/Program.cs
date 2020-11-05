@@ -9,9 +9,9 @@ namespace Addressbok
     class Person
     {
         public string name;
-        string address;
-        string phone;
-        string email;
+        public string address;
+        public string phone;
+        public string email;
 
         public Person(string inputName, string inputAddress, string inputPhone, string inputEmail)
         {
@@ -85,6 +85,41 @@ namespace Addressbok
                     {
                         Console.WriteLine("{0} hittades ej", personToRemove);
                     }
+                }
+                else if (command == "change")
+                {
+                    Console.WriteLine("Skriv in namnet p[ personen du vill 'ndra p[");
+                    string nameToFind = Console.ReadLine();
+
+
+                    Person pointer = addressBook.Find(x => x.name.Equals(nameToFind));
+                    Console.WriteLine("Personen heter: " + pointer.name + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
+                    string change = Console.ReadLine();
+                    if (change != "")
+                    {
+                        pointer.name = change;
+                    }
+                    Console.WriteLine("Personen bor p[: " + pointer.address + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
+                    change = Console.ReadLine();
+                    if (change != "")
+                    {
+                        pointer.address = change;
+                    }
+                    Console.WriteLine("Personen har telefonnummer: " + pointer.phone + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
+                    change = Console.ReadLine();
+                    if (change != "")
+                    {
+                        pointer.phone = change;
+                    }
+                    Console.WriteLine("Personen har email: " + pointer.email + " Tryck enter om du vill beh[lla det, annars skriv in det nya");
+                    change = Console.ReadLine();
+                    if (change != "")
+                    {
+                        pointer.email = change;
+                    }
+
+
+
                 }
             }
 
